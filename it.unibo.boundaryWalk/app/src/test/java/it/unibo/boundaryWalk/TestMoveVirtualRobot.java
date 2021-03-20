@@ -9,18 +9,20 @@ import static org.junit.Assert.assertTrue;
 public class TestMoveVirtualRobot {
 
     private MoveVirtualRobotInterface appl;
+    private MoveVirtualRobotInterface temp;
 
     @Before
     public void systemSetUp() {
         System.out.println("TestMoveVirtualRobot | setUp: robot should be at HOME-DOWN ");
-        appl = MoveVirtualRobotFactory.getMoveVirtualRobotWS(); // WEBSOCKET
-        // appl = MoveVirtualRobotFactory.getMoveVirtualRobotHTTP(); // HTTP
+        temp = MoveVirtualRobotFactory.getMoveVirtualRobotWS(); // WEBSOCKET
+        appl = MoveVirtualRobotFactory.getMoveVirtualRobotHTTP(); // HTTP
         appl.openConnection();
     }
 
     @After
     public void  terminate() {
         appl.closeConnection();
+        temp.closeConnection();
         System.out.println("%%%  TestMoveVirtualRobot |  terminates ");
     }
 
