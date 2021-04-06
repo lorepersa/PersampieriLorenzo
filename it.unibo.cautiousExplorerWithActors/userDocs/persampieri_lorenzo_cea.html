@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <!--
+<link rel="stylesheet" type="text/css" href="../css/issStyle1.css">
+<script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+<style type="text/css">
+body
+{
+    margin-left:  30px;
+    margin-right: 30px;
+};
+
+P
+{
+    font-family: Tahoma;
+    font-size: 10pt;
+};
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+	font-size: 93%;
+}
+
+a:hover {
+    background-color: #cccccc;
+}
+
+
+hr {
+    clear: both;
+    height: 1px;
+    color: #242424;
+    background-color: transparent;
+}
+
+h1, h2, h3 {
+    color: #242424;
+    clear: left;
+    font: 100% Tahoma, Helvetica, Arial, sans-serif;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+top {
+	width: 100%;
+}
+
+
+#i {
+    color: #ff1010;
+}
+tt{
+	font-family: "Arial";
+    font-size: 90%;
+	color: #006600;
+}
+em{
+	font-family: "Arial";
+    font-size: 80%;
+	font-weight: bold;
+	border-style:solid;
+	border-color: #abe876;
+    color: #1632cc;
+}
+bc{
+	font-family: "Arial";
+	font-size: 90%;
+	font-weight: bold;
+    color: #990000;
+	background-color: #fcf8c7;
+}
+ks{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #0000CD	;
+	font-size: 90%;
+}
+kc{
+	font-family: "Arial";
+	font-weight: bold;
+    color: #008000	;
+	font-size: 90%;
+}
+pre{
+	font-family: "Consolas";
+	font-size: 85%;
+	background-color: #f5f5f5;
+	border: 1.5px solid silver;
+	padding: 5px;
+}
+m{
+	font-family: "Helvetica";
+	line-height: 100%;
+ 	font-size: 75%;
+}
+div.body{
+	 
+    font-size: 18px;
+}
+k{
+    color: #990000;
+	font-weight: bold;
+	font-size: 90%;
+}
+h1 {
+    font-size: 150%;
+    background-color: #b2c0ff;
+	padding: 10px;
+}
+
+h2 {
+    background-color: #9ed8ff;
+    font-size: 130%;
+}
+
+h3 {
+	background-color: #e6ccff;
+    font-size: 100%;
+}
+h4 {
+    background-color: #ccffcc;
+    font-size: 100%;
+	width: 95%;
+	border-radius: 5px;
+	padding: 2px;
+}
+h5 {
+    background-color: #d5ffb0;
+    font-size: 100%;
+
+}
+div.req{
+	background-color: #d9ffb3;
+    font-size: 18px;
+	width: 700px;
+    border: 3px solid green;
+    padding: 15px;
+    margin: 10px;
+}
+div.remark{
+	background-color: #E3F2FD;
+    border: 1.5px solid #d5f2ed;
+    padding: 15px;
+    margin: 10px;
+	border-radius: 25px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+ol, ul, li {
+  margin: 0;
+  margin-left: 10px;
+  padding: 0;
+  padding-bottom: 5px;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+img {
+	border: 1.5px solid #d5f2ed
+
+}
+
+a, a:visited, a:active, a:link, a:hover {
+    text-decoration: underline;
+    color: #545454;
+    background-color: transparent;
+}
+
+div.wrapdesc{
+	width: 90%;
+	margin: auto;
+}
+
+div.imagedesc{
+	width: 85%;
+	margin: auto;
+}
+</style>
+    
+<head>
+   
+<title>cautiousExplorerActors</title></head>
+    
+<body>
+<div id="top">
+<h1>LABORATORIO DI INGEGNERIA DEI SISTEMI SOFTWARE <font size="5"></font> </h1>
+</div>  
+
+<div class="body"> 
+<h2>Introduction</h2>
+This case-study deals with the design and development of proactive/reactive software systems 
+based on the concept of Actor, as introduced in 
+<a href="../../it.unibo.supports/userDocs/wssupportAsActorJava.html" target="web">
+LabIss2021 | wshttp support with ActorBasicJava observers</a>.
+ 
+<h2>Requirements</h2>
+
+ 
+<div class="remark">
+Design and build a software system that allow the robot described in 
+<a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a>
+ to exibit the following behaviour:
+<ul>
+<li>the robot lives in a rectangular room, delimited by walls that includes one or more devices (e.g. sonar) able to detect the presence
+of obstacles, including the robot itself;</li>
+<li>the robot has a <ks>den</ks> for refuge, located in the position shown in the picture
+<center><img src="./img/cautiousExplorer.png" alt="cautiousExplorer" width="20%" ></center></li>
+<li>the robot works as an <i>explorer of the room</i>. Starting from its <ks>den</ks>,  the goal of the robot is to
+create a map of the room that records the position of the fixed obstacles. 
+The presence of mobile obstacles in the room is (at the moment) excluded;</li>
+<li>since the robot is <i>'cautious'</i>,  it  returns immediately to the <ks>den</ks> as soon as it finds an obstacle.
+It also stops for a while (e.g. 2 seconds), when it 'feels' that the sonar has detected its presence.
+</li>
+ 
+</ul>
+</div>
+
+ <h3>Delivery</h3>
+The customer requires to receive at <k>12 noon on April 6</k> a file named 
+<pre>
+cognome_nome_cea.pdf
+</pre>
+including a (synthetic) description of the project  (preceded by a proper analysis of the problem)
+based on components of type <a href="../../it.unibo.supports/userDocs/wssupportAsActorJava.html" target="web">ActorBasicJava</a>
+and a reference to a <i>first working prototype</i> (even with limited capabilities) of the system. 
+ 
+ <h3>Meeting</h3>
+ A SPRINT-review phase with the customer is planned (via Teams) at <k>5.15 pm on April 6</k>.
+
+
+<h2>Requirement analysis</h2>
+<div class="remark">
+<h3>Names and verbs analysis</h3>
+<ks>Robot:</ks> Any system that moves after receiving certain commands. <br/>
+<ks>Rectangular room:</ks> The rectangular environment (delimited by walls) in which the robot lives. <br/>
+<ks>Sonar:</ks> A device capable of detecting the position of the robot in the room. <br/>
+<ks>Den:</ks> The point of departure and return of the robot within the room. It is located in the upper left corner of the room. <br/>
+<ks>Fixed obstacle:</ks> Any wall or object that obstructs the robot's path within the room. The position of these obstacles is not known but does not change over time. <br/>
+<ks>Mental map:</ks> The map of the room from the point of view of the robot. This map must faithfully reproduce the position of obstacles within the room. <br/>
+<br/>
+<ks>Able to detect its presence:</ks> The sonar is able to detect the position of the robot in the room by means of sensors. <br/>
+<ks>The robot moves:</ks> The robot must be able to move forward or backward and turn left or right, as desribed in <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a>.<br/>
+<ks>To find the fixed obstacles:</ks> When the impact sensors of the robot detect a collision with an obstacle the position of the obstacle should be saved in the mental map.  <br/>
+<ks>Returns immediately to the den:</ks> As soon as possible the robot must follow a path to return to the starting position. <br/>
+<ks>Remember:</ks> The mental map should not be initialized every time the robot returns to the den. A persistence solution is preferable.
+
+<h3>User story 1</h3>
+A user places the robot in the den and starts the system. The robot starts to move and when it collides with an obstacle it returns to the den.  <br/>
+<br/>
+
+<h3>User story 2</h3>
+A user places the robot in the den and starts the system. The robot starts to move and when it "feels" the sonar it stops for two seconds.  <br/>
+<br/>
+
+
+<h3>Test plans</h3>
+the correctness of the application logic must be tested via software.
+</div>
+
+<h2>Problem analysis</h2>
+<div class="remark">
+<h3>Technologies to adopt and main problems</h3>
+In the <a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/master/it.unibo.virtualRobot2020/userDocs/VirtualRobot2021.html" target="lab"><em>VirtualRobot2021.html</em></a> the customer states that the robot can receive move commands in two different ways:
+	<ul>
+	<li>by sending messages to the port <tt>8090</tt> using  <ks>HTTP POST</ks> </li>
+	<li>by sending messages to the port <tt>8091</tt> using a <ks>websocket</ks> </li>
+	</ul>
+Furthermore, as explained in the file mentioned above, after executing the command the robot sends a response containing one of the following values: "true", "false", "halted", "notallowed".
+The communication therefore takes place according to a <ks>request-response</ks> pattern. <br/>
+However, sonar data are sent only on port 8091 with the WebSocket protocol, so to meet the requirement relating to the reception of sonar data we should also process these <ks>dispatch</ks> messages. It is recommended the use of the Websocket protocol in order to process also sonar data and other possible data in future requirements. <br/>
+With respect to the technological level, there are many libraries in many programming languages that support the required protocols.  
+
+<h3>Relevant aspects</h3>
+<ul>
+<li> The application should remember the position of the obstacles found in order to avoid them in future runs.</li>
+<li> The mental map could also be used to return to the den with a different path from the outward one (i.e. running a shortest-path search in order to find the more convenient path).</li>
+<li> In order to build a consistent mental map in several runs the application should move the robot in an organized way (e.g. avoid random path).</li>
+<li> When the sonar data are detected our application should stop to send commands to the robot for 2 seconds.</li>
+</ul>
+
+<h3>Abstraction gap</h3>
+First of all, the problem introduces an abstraction gap on the communication protocol (<ks>HTTP Post</ks> or <ks>websocket</ks>). Furthermore, the logical interaction can be <ks>request-response</ks> or <ks>dispatch</ks>, so we introduce this second abstraction gap. <br/><br/>
+<h3>Logical architecture</h3>
+ <table style="width:98%">
+<tbody>	
+<tr>
+<td style="width:50%">
+<center> 
+ <figure>  
+     <img src="./img/prot_log_arch.png" width="100%" height="100%">
+     <figcaption>  
+          <p>1. Protocols</p>  
+     </figcaption>  
+ </figure> 
+</center>
+</td>
+<td style="width:50%" >
+<center> 
+ <figure>  
+     <img src="./img/inter_log_arch.png" width="100%" height="100%">
+     <figcaption>  
+          <p>2. Logical interaction</p>  
+     </figcaption>  
+ </figure>
+</center> 
+</td>
+</tr>
+ </tbody>
+</table>
+<br/>
+We observe that:
+The specification of the exact 'nature' of our cautiousExplorer software is left to the designer. However, we can say here that is it not a database, or a function or an object.
+
+<h3>Useful resources</h3>
+The following resources could simplify the development of the application:
+<ul>
+<li><a href="https://htmlpreview.github.io/?https://github.com/anatali/issLab2021/blob/main/it.unibo.supports/userDocs/wssupportAsActorJava.html">wssupportAsActorJava.html</a></li>
+<li><a href="https://github.com/anatali/issLab2021/tree/main/it.unibo.supports/">it.unibo.supports</a></li>
+<h3>Time</h3>
+The expected time required for the development of the application is (no more than) 1 day.
+ 
+
+</div>
+
+
+
+<h2>Test plans</h2>
+<div class="remark">
+<ul>
+<li>Collision test (User story 1)</li>
+We put the robot on the den. A basic test consists in moving the robot forward with the “moveForward” command until it collides with an obstacle, after the collision the robot must return to the starting position by retracing the path backwards with the “moveBackward” command. <br/>
+For example, we can assign the time T to both moveForward and moveBackward command, then we can count the number (N) of moveForward command sent to the robot before the collision and then we should send to the robot N moveBackward commands. <br/>
+So, we can progressively build a string adding "w" at each moveForward, then at each moveBackward command we should add "b" to the string. At the end the string should matches the regex "^w+b+$" and the count of "w" should be equals to the count of "b".
+<li>Sonar data test (User story 2)</li>
+To do.
+</ul>
+</div>
+
+<h2>Project</h2>
+<div class="remark">
+The first prototype of the application should be composed by 3 main entities:
+<ul>
+<li>The Ws / HTTP support</li>
+<li> The ControllerActor: this actor starts and send to the CautiousExplorerActor a path that the robot must take.</li>
+<li> The CautiousExplorerActor: this actor receive the path and send the commands to the robot to follow the path. If a collision happens then this actor send the inverse command to the robot to come back to den; if a sonar data is received the actor stops to send command for two seconds. At the end the actor send to its observer (the CautiousExplorerActor) the path effectively followed by the robot (e.g. a "subset" of the path received).</li>
+</ul>
+<br/>
+<center> 
+ <figure>  
+     <img src="./img/project_cea.png" width="70%" height="70%">
+ </figure> 
+</center>
+<br/>
+A more accurate implementation should revise the ControllerActor logic and update also the mental map.
+</div>
+
+<h2 id="testing">Testing</h2> 
+ 
+
+<h2 id="deployment">Deployment</h2> 
+<div class="remark">
+The deployment consists in the commit of the application on a project named it.unibo.cautiousExplorerActors of the <a href="https://github.com/lorepersa/PersampieriLorenzo">PersampieriLorenzo</a> repository. <br/>
+The final commit commit of the first prototype of the application has done after 4 hours of work.
+</div>
+ 
+<h2 id="maintenance">Maintenance</h2> 
+ 
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+By Lorenzo Persampieri email: lorenzo.persampieri@studio.unibo.it  
+<img src="./img/mia_foto.jpg" alt="mbot" width="20%" height="20%">
+</div> 
+</body>
+</html>

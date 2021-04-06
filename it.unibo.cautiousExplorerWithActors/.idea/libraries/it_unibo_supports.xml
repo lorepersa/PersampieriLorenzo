@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="it.unibo.supports">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/it.unibo.supports.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
